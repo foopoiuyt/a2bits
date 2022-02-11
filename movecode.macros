@@ -1,0 +1,43 @@
+* This is mostly an excuse to play around
+* with macros in orca-m 2.0.
+
+ MACRO
+&lab movecode &begin,&end,&destination
+ lclc &doo
+&doo setc 3
+
+* Setup begin/destination in ZP
+ lda #<&begin
+ sta MOVECODEBEGINZP
+ lda #>&begin
+ sta MOVECODEBEGINZP+1
+ lda #<&destination
+ sta MOVECODEDESTINATIONZP
+ lda #>&destination
+ sta MOVECODEDESTINATIONZP+1
+
+* move (hi byte of length) full pages
+ ldx #>(&end-&begin)
+movecodexloop&SYSCNT anop
+ beq movecodelast&SYSCNT
+ ldy #$00
+movecodexinnerloop&SYSCNT anop
+ dey
+ lda (MOVECODEBEGINZP),Y
+ sta (MOVECODEDESTINATIONZP),Y
+ tya
+ bne movecodexinnerloop&SYSCNT
+ dex
+ jmp movecodexloop&SYSCNT
+
+* move the last page based on lo byte of length
+movecodelast&SYSCNT anop
+ ldy #<(&end-&begin)
+movecodelastloop&SYSCNT anop
+ dey
+ lda (MOVECODEBEGINZP),Y
+ sta (MOVECODEDESTINATIONZP),Y
+ tya
+ bne movecodelastloop&SYSCNT
+movecodeend&SYSCNT anop
+ MEND
