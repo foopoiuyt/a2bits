@@ -27,6 +27,8 @@ movecodexinnerloop&SYSCNT anop
  sta (MOVECODEDESTINATIONZP),Y
  tya
  bne movecodexinnerloop&SYSCNT
+ inc MOVECODEBEGINZP+1
+ inc MOVECODEDESTINATIONZP+1
  dex
  jmp movecodexloop&SYSCNT
 
