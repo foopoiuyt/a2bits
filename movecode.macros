@@ -3,9 +3,6 @@
 
  MACRO
 &lab movecode &begin,&end,&destination
- lclc &doo
-&doo setc 3
-
 * Setup begin/destination in ZP
  lda #<&begin
  sta MOVECODEBEGINZP
@@ -18,8 +15,8 @@
 
 * move (hi byte of length) full pages
  ldx #>(&end-&begin)
-movecodexloop&SYSCNT anop
  beq movecodelast&SYSCNT
+movecodexloop&SYSCNT anop
  ldy #$00
 movecodexinnerloop&SYSCNT anop
  dey
@@ -30,7 +27,7 @@ movecodexinnerloop&SYSCNT anop
  inc MOVECODEBEGINZP+1
  inc MOVECODEDESTINATIONZP+1
  dex
- jmp movecodexloop&SYSCNT
+ bne movecodexloop&SYSCNT
 
 * move the last page based on lo byte of length
 movecodelast&SYSCNT anop
