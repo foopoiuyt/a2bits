@@ -33,6 +33,7 @@ movecodexinnerloop&SYSCNT anop
 * move the last page based on lo byte of length
 movecodelast&SYSCNT anop
  ldy #<(&end-&begin)
+ beq movecodeend&SYSCNT
 movecodelastloop&SYSCNT anop
  dey
  lda (MOVECODEBEGINZP),Y
