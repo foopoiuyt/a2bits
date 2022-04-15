@@ -1,6 +1,6 @@
-MLIEXIT EQU $65
-
 cleanup anop
+* restore text mode
+    LDA TEXTON
 * invalidate reset vector
     INC $03F4
 * exit

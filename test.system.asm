@@ -4,10 +4,11 @@
  org $2000
 main start
 
-PRODOS EQU $BF00
+ copy constants/prodos.asm
+ copy constants/switches.asm
+ copy constants/zp.asm
+
 MAINLOC EQU $800
-MOVECODEBEGINZP EQU $02
-MOVECODEDESTINATIONZP EQU $04
 
 * copy code to new location as necessary
  movecode routines,routines_end,MAINLOC
