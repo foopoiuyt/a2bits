@@ -1,4 +1,5 @@
-cleanup anop
+cleanuproutines start
+cleanup entry
 * restore text mode
     LDA TEXTON
 * invalidate reset vector
@@ -16,3 +17,5 @@ EXITPARMTABLESTART  anop
  DC  i'0'           ;Byte reserved for future use
  DC  a'0000'        ;Pointer reserved for future use
 EXITPARMTABLEEND anop
+
+ end

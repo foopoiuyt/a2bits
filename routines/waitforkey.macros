@@ -1,0 +1,7 @@
+ MACRO
+&lab waitforkey
+ LDA KEYSTROBE
+wfkloop&SYSCNT anop
+ LDA KEYBOARD
+ BPL wfkloop&SYSCNT
+ MEND
