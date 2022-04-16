@@ -1,0 +1,71 @@
+ MACRO
+&lab cleartextscreen &ch
+ lda #&ch
+ ldx #$04
+ stx eclil&SYSCNT+2
+eclol&SYSCNT anop
+ ldy #$00
+eclil&SYSCNT anop
+ sta $400,Y
+ iny
+ bne eclil&SYSCNT
+ inc eclil&SYSCNT+2
+ dex
+ bne eclol&SYSCNT
+ MEND
+
+ MACRO
+&lab writedebugstringline &line,&label,&string
+ ldy &label
+ ldx $00
+efl&SYSCNT anop
+ lda &label+1,X
+ sta &line,X
+ inx
+ dey
+ bne efl&SYSCNT
+
+; Move the position for the filename forward by the
+; number of characters for label
+ txa
+ clc
+ adc efnp&SYSCNT+1
+ sta efnp&SYSCNT+1
+
+ ldy &string
+ ldx $00
+efnl&SYSCNT anop
+ lda &string+1,X
+efnp&SYSCNT anop
+ sta &line,X ; Note: the lower byte here will be modified above
+ inx
+ dey
+ bne efnl&SYSCNT
+ MEND
+
+ MACRO
+&lab writedebughexline &line,&label,&value,&hex
+ ldy &label
+ ldx $00
+efl&SYSCNT anop
+ lda &label+1,X
+ sta &line,X
+ inx
+ dey
+ bne efl&SYSCNT
+ lda &value
+ lsr A
+ lsr A
+ lsr A
+ lsr A
+ tay
+ lda &hex,Y
+ sta &line,X
+ inx
+    
+ lda &value
+ and #$0F  
+ tay
+ lda &hex,Y
+ sta &line,X
+ MEND
