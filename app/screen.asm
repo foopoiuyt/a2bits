@@ -28,11 +28,6 @@ p0 anop
  ldx $03
  jsr clearscreen
 
-; TODO: wait for vblank (this is temporary due to ][c behavior_
-;loop1 lda $c019
-; bpl loop1
-;loop lda $c019
-; bmi loop ;wait for beginning of VBL interval
  jsr vblank
 
  lda $03
@@ -59,4 +54,3 @@ p3 anop
 
  copy routines/cleanup.asm
  copy routines/screen.asm
-
