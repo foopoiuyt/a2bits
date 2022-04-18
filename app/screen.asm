@@ -12,11 +12,88 @@ screenapp start
  jsr vblanksetup
 
  ldx #$20
- ldy #$55
+ ldy #$00
+ jsr clearscreen
+ ldx #$40
+ ldy #$00
  jsr clearscreen
  copy routines/setupgraphics.asm
 
  waitforkey
+
+ lda #$40
+ sta $10
+ lda #$0A
+ sta $11
+ lda #$3C
+ sta $14
+ lda #0
+ sta $12
+ sta $15
+ lda #$40
+ sta $13
+ lda #$15
+ sta $16
+ jsr bline
+
+ lda #$3C
+ sta $11
+ lda #$6E
+ sta $14
+ lda #0
+ sta $12
+ sta $15
+ lda #$15
+ sta $13
+ lda #$40
+ sta $16
+ jsr bline
+
+ lda #$6E
+ sta $11
+ lda #$3C
+ sta $14
+ lda #0
+ sta $12
+ sta $15
+ lda #$40
+ sta $13
+ lda #$6D
+ sta $16
+ jsr bline
+
+ lda #$3C
+ sta $11
+ lda #$0A
+ sta $14
+ lda #0
+ sta $12
+ sta $15
+ lda #$6D
+ sta $13
+ lda #$40
+ sta $16
+ jsr bline
+
+ lda #$01
+ sta $11
+ lda #$0A
+ sta $14
+ lda #$01
+ sta $12
+ sta $15
+ lda #$0D
+ sta $13
+ lda #$80
+ sta $16
+ jsr bline
+
+ jsr vblank
+ lda PAGE2ON
+
+ waitforkey 
+
+ jsr cleanup ; won't return
  
  lda #$00
  sta $02
@@ -29,6 +106,7 @@ p0 anop
  jsr clearscreen
 
  jsr vblank
+
 
  lda $03
  cmp #$40
