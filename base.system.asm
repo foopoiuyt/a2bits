@@ -10,6 +10,7 @@
  mcopy routines/debugtext.macros
 
 main start
+ using load
 
  ldx #<FNAME
  ldy #>FNAME
@@ -31,10 +32,6 @@ showerr anop
  waitforkey
 
  jsr cleanup
-
-FNAME anop
- DC i1'6'
- DC C'SCREEN'
 
  MSB ON
 ERRSTRFNAME anop
@@ -58,4 +55,5 @@ ERRSTRHEX anop
 
  copy routines/cleanup.asm
  copy routines/loadbin.asm
+
 
